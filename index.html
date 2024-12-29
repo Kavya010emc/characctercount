@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Character Counter</title>
+    <style>
+        .warning {
+            color: red;
+        }
+
+        .counter {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-image: url('./images/bgimage.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        body h1 {
+            align-items: center;
+            text-align: center;
+            display: flex;
+        }
+
+        .container {
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            height: 100vh;
+            text-align: center;
+        }
+        .textarea{
+            border: 1px solid;
+            background-color: white;
+            width: 40%;
+            padding: 10px;
+            align-items: center;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="textarea">
+            <h2>Text Area with Character Counter</h2>
+            <label for="message">Your Message:</label><br>
+            <textarea id="message" rows="5" cols="40" maxlength="200"></textarea><br>
+            <div id="counter" class="counter">200 characters remaining</div>
+            <div id="warning" class="warning" style="display: none;">You have exceeded the character limit!</div>
+
+        </div>
+    </div>
+
+
+    <script>
+        var textarea = document.getElementById('message');
+        var counter = document.getElementById('counter');
+        var warning = document.getElementById('warning');
+        var maxLength = 200;
+
+        // Event listener for input event
+        textarea.addEventListener('input', function () {
+            var currentLength = textarea.value.length; //inputs in the textarea//
+            var remaining = maxLength - currentLength;
+
+            // Update the remaining character count
+            counter.textContent = remaining + ' characters remaining';
+
+            // Show warning if the character limit is exceeded
+            if (currentLength >= maxLength) {
+                warning.style.display = 'block';
+            } else {
+                warning.style.display = 'none';
+            }
+
+            // Disable further typing if limit is reached
+            if (currentLength >= maxLength) {
+                textarea.value = textarea.value.substring(0, maxLength);
+            }
+        });
+    </script>
+</body>
+
+</html>
